@@ -7,4 +7,3 @@ Easily integrate Mpesa services into your Java applications with this SDK.
 Click the link above to explore the codebase.
 
 Happy coding! 💻✨
-
