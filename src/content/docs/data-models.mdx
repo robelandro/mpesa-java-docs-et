@@ -1,0 +1,241 @@
+## UssdPushRequest
+
+| Parameter         | Type          | Description                                                           |
+| ----------------- | ------------- | --------------------------------------------------------------------- |
+| merchantRequestId | String        | Unique transaction ID                                                 |
+| businessShortCode | Numeric       | Organization's shortcode (5-6 digits)                                 |
+| password          | String        | Base64 encoded string (Shortcode+Passkey+Timestamp)                   |
+| timestamp         | Timestamp     | Transaction timestamp in YYYYMMDDHHMMSS format                        |
+| transactionType   | String        | Transaction type: "CustomerPayBillOnline" or "CustomerBuyGoodsOnline" |
+| amount            | Numeric       | Transaction amount (whole numbers only)                               |
+| partyA            | Numeric       | Sender's phone number (12-digit Safaricom number)                     |
+| partyB            | Numeric       | Receiver's shortcode (5-6 digits)                                     |
+| phoneNumber       | Numeric       | Phone number to receive STK Pin Prompt                                |
+| transactionDesc   | String        | Additional info/comment (max 13 characters)                           |
+| callBackUrl       | URL           | Secure URL for receiving API notifications                            |
+| accountReference  | Alpha-Numeric | Identifier for the transaction (max 12 characters)                    |
+| referenceData     | List          | Additional reference data                                             |
+
+```java /UssdPushRequest/
+UssdPushRequest request = UssdPushRequest.builder()
+        .merchantRequestId("Partner name some testing")
+        .businessShortCode("1020")
+        .password("ENCODED_PASSWORD")
+        .timestamp("20240918055823")
+        .transactionType("CustomerPayBillOnline")
+        .amount("20")
+        .partyA("251777890420")
+        .partyB("1020")
+        .phoneNumber("251777890420")
+        .transactionDesc("Payment Reason")
+        .callBackUrl("https://www.myservice.com/result")
+        .accountReference("Partner Unique ID")
+        .referenceData(List.of(new ReferenceData("ThirdPartyReference", "Ref-12345")))
+        .build();
+```
+
+## PayOutRequest
+
+| Parameter                | Type   | Description                     |
+| ------------------------ | ------ | ------------------------------- |
+| originatorConversationID | String | Unique transaction ID           |
+| initiatorName            | String | API user initiating the request |
+| securityCredential       | String | Encrypted password              |
+| commandID                | String | Transaction type                |
+| partyA                   | String | Sender's shortcode              |
+| partyB                   | String | Receiver's phone number         |
+| amount                   | int    | Transaction amount              |
+| remarks                  | String | Transaction details             |
+| occasion                 | String | Additional transaction info     |
+| queueTimeOutURL          | String | Timeout callback URL            |
+| resultURL                | String | Result callback URL             |
+
+```java /PayOutRequest/
+PayOutRequest request = PayOutRequest.builder()
+        .originatorConversationID("Partner name some testing")
+        .initiatorName("apitest")
+        .securityCredential("ENCODED_CREDENTIAL")
+        .commandID("BusinessPayment")
+        .partyA("600982")
+        .partyB("251700404709")
+        .amount(10)
+        .remarks("Pay to Customer")
+        .occasion("PayOut")
+        .queueTimeOutURL("https://www.myservice.com/result")
+        .resultURL("https://www.myservice.com/result")
+        .build();
+```
+
+## TransactionStatusRequest
+
+| Parameter              | Type   | Description                                   |
+| ---------------------- | ------ | --------------------------------------------- |
+| initiator              | String | API initiator name                            |
+| securityCredential     | String | Encrypted API user credential                 |
+| commandId              | String | Transaction type                              |
+| transactionId          | String | Unique transaction identifier                 |
+| originalConversationId | String | Global unique transaction ID                  |
+| partyA                 | String | Organization/MSISDN receiving the transaction |
+| identifierType         | String | Type of organization identifier               |
+| resultUrl              | String | Callback URL for transaction result           |
+| queueTimeoutUrl        | String | Callback URL for timeout notifications        |
+| remarks                | String | Additional transaction information            |
+| occasion               | String | Additional transaction occasion               |
+
+```java /TransactionStatusRequest/
+TransactionStatusRequest request = TransactionStatusRequest.builder()
+        .initiator("apitest")
+        .securityCredential("ENCODED_CREDENTIAL")
+        .commandId("TransactionStatusQuery")
+        .transactionId("0")
+        .originalConversationId("AG-20190826-0000777ab7d848b9e721")
+        .partyA("1020")
+        .identifierType("4")
+        .resultUrl("https://www.myservice.com/result")
+        .queueTimeoutUrl("https://www.myservice.com/result")
+        .remarks("Trans Status")
+        .occasion("Query trans status")
+        .build();
+
+```
+
+## TransactionReversalRequest
+
+| Parameter                | Type   | Description                             |
+| ------------------------ | ------ | --------------------------------------- |
+| originatorConversationId | String | Unique transaction ID                   |
+| initiator                | String | API initiator name                      |
+| securityCredential       | String | Encrypted API user credential           |
+| commandId                | String | Transaction type                        |
+| transactionId            | String | Unique transaction identifier           |
+| amount                   | String | Transaction amount                      |
+| receiverIdentifierType   | String | Identifier type                         |
+| receiverParty            | String | Phone number initiating the transaction |
+| resultUrl                | String | Callback URL for transaction result     |
+| queueTimeOutUrl          | String | Callback URL for timeout notifications  |
+| remarks                  | String | Transaction description                 |
+| occasion                 | String | Transaction occasion                    |
+
+```java /TransactionReversalRequest/
+TransactionReversalRequest request = TransactionReversalRequest.builder()
+        .originatorConversationId("Partner name -{{$guid}}")
+        .initiator("apitest")
+        .securityCredential("ENCODED_CREDENTIAL")
+        .commandId("TransactionReversal")
+        .transactionId(" ")
+        .amount("200")
+        .receiverIdentifierType("1")
+        .receiverParty("444000")
+        .resultUrl("https://www.myservice.com/result")
+        .queueTimeOutUrl("https://www.myservice.com/result")
+        .remarks("B2C Reversal")
+        .occasion("Payout")
+        .build();
+
+```
+
+## AccountBalanceRequest
+
+| Parameter          | Type   | Description                            |
+| ------------------ | ------ | -------------------------------------- |
+| initiator          | String | Name of the API initiator              |
+| securityCredential | String | Encrypted API user credential          |
+| commandID          | String | Use 'AccountBalance' as the command ID |
+| partyA             | String | Organization's shortcode               |
+| identifierType     | String | Type of organization identifier        |
+| remarks            | String | Comments sent with the transaction     |
+| queueTimeoutURL    | String | URL for timeout callback notifications |
+| resultURL          | String | URL for transaction result callback    |
+
+```java /AccountBalanceRequest/
+AccountBalanceRequest request = AccountBalanceRequest.builder()
+        .originatorConversationID("Partner name -{{$guid}}")
+        .initiator("apitest")
+        .securityCredential("ENCODED_CREDENTIAL")
+        .commandID("AccountBalance")
+        .partyA("1020")
+        .identifierType("4")
+        .remarks("Balance check")
+        .queueTimeOutURL("https://www.myservice.com/result")
+        .resultURL("https://www.myservice.com/result")
+        .build();
+
+```
+
+## SimulateRequest
+
+| Parameter     | Type   | Description                     |
+| ------------- | ------ | ------------------------------- |
+| commandID     | String | Unique command ID               |
+| amount        | String | Transaction amount              |
+| msisdn        | String | Customer's phone number         |
+| billRefNumber | String | Unique reference number         |
+| shortCode     | String | Organization's unique shortcode |
+
+```java /SimulateRequest/
+SimulateRequest request = SimulateRequest.builder()
+        .commandID("CustomerPayBillOnline")
+        .amount("110")
+        .msisdn("251945628580")
+        .billRefNumber("091091")
+        .shortCode("443443")
+        .build();
+```
+
+## RegisterUrlRequest
+
+| Parameter       | Type   | Description                                                                |
+| --------------- | ------ | -------------------------------------------------------------------------- |
+| shortCode       | String | Unique number tagged to an M-PESA pay bill/till number of the organization |
+| responseType    | String | Action if the validation URL is unreachable: "Completed" or "Cancelled"    |
+| commandID       | String | Use "RegisterURL" to differentiate the service                             |
+| confirmationURL | URL    | URL that receives the confirmation request upon payment completion         |
+| validationURL   | URL    | URL that receives the validation request upon payment submission           |
+
+```java /RegisterUrlRequest/
+RegisterUrlRequest request = RegisterUrlRequest.builder()
+        .shortCode("123456")
+        .responseType("Completed")
+        .commandID("RegisterURL")
+        .confirmationURL("https://www.myservice.com/confirmation")
+        .validationURL("https://www.myservice.com/validation")
+        .build();
+```
+
+## C2BPaymentValidationRequest
+
+| Parameter         | Type   | Description                                                                 |
+| ----------------- | ------ | --------------------------------------------------------------------------- |
+| transType         | String | The transaction type specified during the payment request (e.g., Buy Goods) |
+| transID           | String | Unique M-Pesa transaction ID for every payment request                      |
+| transTime         | String | Timestamp of the transaction in the format YYYYMMDDHHMMSS                   |
+| transAmount       | String | Amount transacted, money paid by the customer (whole numbers only)          |
+| businessShortCode | String | Organization's shortcode (Paybill or Buygoods, 6 digits)                    |
+| billRefNumber     | String | Account number for which the customer is making the payment                 |
+| invoiceNumber     | String | Invoice number for the payment                                              |
+| orgAccountBalance | String | Current utility account balance of the receiving organization shortcode     |
+| thirdPartyTransID | String | A transaction ID the partner can use to identify the transaction            |
+| msisdn            | String | Masked mobile number of the customer making the payment                     |
+| firstName         | String | Customer's first name as per the M-Pesa register                            |
+| middleName        | String | Customer's middle name as per the M-Pesa register                           |
+| lastName          | String | Customer's last name as per the M-Pesa register                             |
+| kycInfo           | List   | A list of key-value pairs representing Know Your Customer (KYC) information |
+
+```java /C2BPaymentValidationRequest/
+C2BPaymentValidationRequest request = C2BPaymentValidationRequest.builder()
+        .transType("BuyGoods")
+        .transID("LHG31AA5TX")
+        .transTime("20240904T123000")
+        .transAmount("100")
+        .businessShortCode("123456")
+        .billRefNumber("Bill123")
+        .invoiceNumber("Invoice123")
+        .orgAccountBalance("")
+        .thirdPartyTransID("TP123456")
+        .msisdn("25170****149")
+        .firstName("John")
+        .middleName("Doe")
+        .lastName("Smith")
+        .kycInfo(List.of(new KYCInfo("Key1", "Value1"), new KYCInfo("Key2", "Value2")))
+        .build();
+```

@@ -1,0 +1,230 @@
+# Mpesa Class Methods
+
+## payOut
+
+Sends a synchronous request to perform a business-to-customer (B2C) payment.
+
+**Parameters:**
+
+- `payOutRequest` (PayOutRequest): The payment details.
+
+**Returns:**
+
+- `SuccessResponse`: The result of the payment.
+
+**Example:**
+
+```java
+PayOutRequest request = PayOutRequest().builder().build();
+// ...set request details...
+SuccessResponse response = mpesa.payOut(request);
+```
+
+---
+
+## transactionStatus
+
+Sends a synchronous request to query the status of a transaction.
+
+**Parameters:**
+
+- `transactionStatusRequest` (TransactionStatusRequest): The transaction details.
+
+**Returns:**
+
+- `SuccessResponse`: The result of the transaction status query.
+
+**Example:**
+
+```java
+TransactionStatusRequest request = TransactionStatusRequest().builder().build();
+// ...set request details...
+SuccessResponse response = mpesa.transactionStatus(request);
+```
+
+---
+
+## transactionReversal
+
+Sends a synchronous request to reverse a transaction.
+
+**Parameters:**
+
+- `transactionReversalRequest` (TransactionReversalRequest): The transaction reversal details.
+
+**Returns:**
+
+- `SuccessResponse`: The result of the transaction reversal.
+
+**Example:**
+
+```java
+TransactionReversalRequest request = TransactionReversalRequest().builder().build();
+// ...set request details...
+SuccessResponse response = mpesa.transactionReversal(request);
+```
+
+---
+
+## accountBalance
+
+Sends a synchronous request to query the balance of the short code.
+
+**Parameters:**
+
+- `accountBalanceRequest` (AccountBalanceRequest): The transaction details.
+
+**Returns:**
+
+- `SuccessResponse`: The result of the account balance query.
+
+**Example:**
+
+```java
+AccountBalanceRequest request = AccountBalanceRequest().builder().build();
+// ...set request details...
+SuccessResponse response = mpesa.accountBalance(request);
+```
+
+---
+
+## triggerUssdPush
+
+Initiates a customer-to-business (C2B) payment by sending a USSD Push request.
+
+**Parameters:**
+
+- `request` (UssdPushRequest): Payment details like amount, phone number, and callback URL.
+
+**Returns:**
+
+- `UssdPushResponse`: The transaction status and any error messages.
+
+**Example:**
+
+```java
+UssdPushRequest request = UssdPushRequest().builder().build();
+// ...set request details...
+UssdPushResponse response = mpesa.triggerUssdPush(request);
+```
+
+---
+
+## registerPaymentNotificationUrl
+
+Registers validation and confirmation URLs with M-PESA for payment notifications.
+
+**Parameters:**
+
+- `request` (RegisterUrlRequest): Shortcode, URLs, etc.
+- `apiKey` (String): The API key required for authentication.
+
+**Returns:**
+
+- `RegisterUrlResponse`: The API response details.
+
+**Example:**
+
+```java
+RegisterUrlRequest request = RegisterUrlRequest().builder().build();
+// ...set request details...
+String apiKey = "your-api-key";
+RegisterUrlResponse response = mpesa.registerPaymentNotificationUrl(request, apiKey);
+```
+
+---
+
+## validatePayment
+
+Validates an incoming payment request by checking transaction details against predefined criteria.
+
+**Parameters:**
+
+- `request` (C2BPaymentValidationRequest): Transaction details like amount, MSISDN, and business shortcode.
+
+**Returns:**
+
+- `ValidationConfirmationResponse`: The result of the validation.
+
+**Example:**
+
+```java
+C2BPaymentValidationRequest request = C2BPaymentValidationRequest().builder().build();
+// ...set request details...
+ValidationConfirmationResponse response = mpesa.validatePayment(request);
+```
+
+---
+
+## confirmPayment
+
+Confirms a processed payment after validation, notifying the business of the transaction completion.
+
+**Parameters:**
+
+- `request` (C2BPaymentValidationRequest): Transaction details like amount, MSISDN, and confirmation status.
+
+**Returns:**
+
+- `ValidationConfirmationResponse`: The confirmation result.
+
+**Example:**
+
+```java
+C2BPaymentValidationRequest request = C2BPaymentValidationRequest().builder().build();
+// ...set request details...
+ValidationConfirmationResponse response = mpesa.confirmPayment(request);
+```
+
+---
+
+## simulatePayment
+
+Simulates an M-PESA Customer Initiated Payment for testing purposes.
+
+**Parameters:**
+
+- `request` (SimulateRequest): The payment simulation details.
+
+**Returns:**
+
+- `SimulateResponse`: The simulation result.
+
+**Example:**
+
+```java
+SimulateRequest request = SimulateRequest().builder().build();
+// ...set request details...
+SimulateResponse response = mpesa.simulatePayment(request);
+```
+
+---
+
+## Async Methods
+
+The following methods are available for asynchronous operations:
+
+- `triggerUssdPushAsync`
+- `registerPaymentNotificationUrlAsync`
+- `validatePaymentAsync`
+- `confirmPaymentAsync`
+- `simulatePaymentAsync`
+- `payOutAsync`
+- `transactionStatusAsync`
+- `transactionReversalAsync`
+- `accountBalanceAsync`
+
+Each async method accepts the following additional parameters:
+
+- `callbackResponse` (CallbackResponse): Executed on successful completion.
+- `callbackError` (CallbackError): Executed if an error occurs.
+
+**Example for Async Usage:**
+
+```java
+mpesa.payOutAsync(request, response -> {
+    // Handle success
+}, error -> {
+    // Handle error
+});
+```

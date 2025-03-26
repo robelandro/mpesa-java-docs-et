@@ -10,19 +10,14 @@ import type { MetaRecord } from "nextra";
  * type MetaRecord = Record<string, MetaRecordValue>
  **/
 const meta: MetaRecord = {
-  index: {
-    display: "hidden",
+  "data-models": {
+    title: "Data Models",
   },
-  "getting-started": {
-    title: "Getting Started",
+  methods: {
+    title: "Methods",
   },
-  docs: {
-    title: "Api Reference",
-  },
-  "api-reference": {
-    title: "Api Reference",
-    href: "/docs",
-    type: "page",
+  exceptions: {
+    title: "Exceptions",
   },
 };
 

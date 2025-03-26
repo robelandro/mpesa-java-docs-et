@@ -1,0 +1,53 @@
+## MpesaSdkException
+
+A generic exception thrown by the M-Pesa SDK for Java. This exception is used to indicate unexpected errors that occur while interacting with the M-Pesa API. These errors may arise due to network issues, configuration problems, or internal SDK errors.
+
+### Fields
+
+- **exception**: The original exception that caused this error.
+- **mpesaError**: The M-Pesa API error response.
+
+### Constructors
+
+- **MpesaSdkException(String message)**  
+   Creates an instance of `MpesaSdkException` with the specified error message.
+
+  - **Parameters**:
+    - `message`: The error message describing the issue.
+
+- **MpesaSdkException(String message, Exception exception)**  
+   Creates an instance of `MpesaSdkException` with the specified error message and the original exception.
+  - **Parameters**:
+    - `message`: The error message describing the issue.
+    - `exception`: The original exception that caused this error.
+
+---
+
+## DataValidationException
+
+An exception thrown by the SDK when an error occurs during user input validation. This exception wraps a message that describes the validation error(s).
+
+### Constructors
+
+- **DataValidationException(String message)**  
+   Creates an instance of `DataValidationException` with the specified error message.
+  - **Parameters**:
+    - `message`: The message describing the validation error(s).
+
+---
+
+## MpesaApiException
+
+An exception thrown by the SDK when an error occurs while calling the M-Pesa API. This exception wraps the `MpesaError` object, which contains the error code and message returned by the API.
+
+### Fields
+
+- **mpesaError**: The `MpesaError` object containing the error code and message returned by the M-Pesa API.
+
+### Constructors
+
+- **MpesaApiException(String message, MpesaError mpesaError)**  
+   Creates an instance of `MpesaApiException` with the specified error message and the `MpesaError` object.
+  - **Parameters**:
+    - `message`: The error message describing the issue.
+    - `mpesaError`: The `MpesaError` object containing the error details from the M-Pesa API.
