@@ -4,7 +4,7 @@
   "description": "Mpesa Java SDK Documentation",
   "scripts": {
     "dev": "next dev",
-    "build": "next build --turbopack",
+    "build": "next build",
     "start": "next start",
     "postbuild": "pagefind --site .next/server/app --output-path public/_pagefind"
   },
