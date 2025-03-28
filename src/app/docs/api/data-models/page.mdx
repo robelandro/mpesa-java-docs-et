@@ -102,6 +102,7 @@ TransactionStatusRequest request = TransactionStatusRequest.builder()
 | Parameter                | Type   | Description                             |
 | ------------------------ | ------ | --------------------------------------- |
 | originatorConversationId | String | Unique transaction ID                   |
+| originalConversationId   | String | Original transaction ID                 |
 | initiator                | String | API initiator name                      |
 | securityCredential       | String | Encrypted API user credential           |
 | commandId                | String | Transaction type                        |
@@ -117,6 +118,7 @@ TransactionStatusRequest request = TransactionStatusRequest.builder()
 ```java /TransactionReversalRequest/
 TransactionReversalRequest request = TransactionReversalRequest.builder()
         .originatorConversationId("Partner name -{{$guid}}")
+        .originalConversationId("Partner name -{{$guid}}")
         .initiator("apitest")
         .securityCredential("ENCODED_CREDENTIAL")
         .commandId("TransactionReversal")
