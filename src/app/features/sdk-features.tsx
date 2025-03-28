@@ -15,7 +15,7 @@ export const SdkFeatures = () => {
         }
         title="Getting Started"
         description="Get started with the M-Pesa API SDK for Java in minutes."
-        href="/getting-started"
+        href="/docs"
       />
       <ShowCard
         icon={
@@ -40,7 +40,7 @@ export const SdkFeatures = () => {
         }
         title="Spring boot support"
         description="Out of box spring boot support"
-        href="/spring-boot"
+        href="/docs/spring-boot"
       />
       <ShowCard
         icon={
@@ -53,7 +53,7 @@ export const SdkFeatures = () => {
         }
         title="Predefined Data Models"
         description="Includes ready-to-use models like UssdPushRequest, RegisterUrlRequest, and more."
-        href="/docs/data-models"
+        href="/docs/api/data-models"
       />
       <ShowCard
         icon={
@@ -66,7 +66,7 @@ export const SdkFeatures = () => {
         }
         title="Async & Sync API Support"
         description="Supports both synchronous and asynchronous API calls for optimal performance."
-        href="/docs/methods#async-methods"
+        href="/docs/api/methods#async-methods"
       />
       <ShowCard
         icon={
@@ -79,7 +79,7 @@ export const SdkFeatures = () => {
         }
         title="Custom HTTP Client"
         description="Flexible and customizable HTTP client for M-Pesa API requests."
-        href="/getting-started#example-4-custom-client"
+        href="/docs#example-4-custom-client"
       />
       <ShowCard
         icon={
