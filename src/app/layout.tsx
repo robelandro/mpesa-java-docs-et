@@ -1,6 +1,7 @@
 import { Footer, Layout, Navbar } from "nextra-theme-docs";
 import { Head } from "nextra/components";
 import { getPageMap } from "nextra/page-map";
+import { Icon } from "@iconify/react";
 import "nextra-theme-docs/style.css";
 import "./globals.css";
 
@@ -11,8 +12,18 @@ export const metadata = {
 
 const navbar = (
   <Navbar
-    logo={<img src="/mpesa-logo.svg" alt="Logo" width={100} height={20} />}
-    // ... Your additional navbar options
+    logo={(
+      <div className="flex items-baseline gap-2">
+        <Icon
+          icon="devicon:java"
+          width="36"
+          height="36"
+          style={{ color: "#3CB957" }}
+        />
+        <img src="/mpesa-logo.svg" alt="Logo" height={35} />
+      </div>
+    )}
+  // ... Your additional navbar options
   />
 );
 const footer = (
@@ -42,7 +53,7 @@ export default async function RootLayout({ children }) {
           pageMap={await getPageMap()}
           docsRepositoryBase="https://github.com/robelandro/mpesa-java-docs-et/tree/main"
           footer={footer}
-          // ... Your additional layout options
+        // ... Your additional layout options
         >
           {children}
         </Layout>

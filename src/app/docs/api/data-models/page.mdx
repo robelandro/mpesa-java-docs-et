@@ -4,8 +4,7 @@
 | ----------------- | ------------- | --------------------------------------------------------------------- |
 | merchantRequestId | String        | Unique transaction ID                                                 |
 | businessShortCode | Numeric       | Organization's shortcode (5-6 digits)                                 |
-| password          | String        | Base64 encoded string (Shortcode+Passkey+Timestamp)                   |
-| timestamp         | Timestamp     | Transaction timestamp in YYYYMMDDHHMMSS format                        |
+| passkey           | String        | Passkey                                                               |
 | transactionType   | String        | Transaction type: "CustomerPayBillOnline" or "CustomerBuyGoodsOnline" |
 | amount            | Numeric       | Transaction amount (whole numbers only)                               |
 | partyA            | Numeric       | Sender's phone number (12-digit Safaricom number)                     |
@@ -20,8 +19,7 @@
 UssdPushRequest request = UssdPushRequest.builder()
         .merchantRequestId("Partner name some testing")
         .businessShortCode("1020")
-        .password("ENCODED_PASSWORD")
-        .timestamp("20240918055823")
+        .passkey("2324343")
         .transactionType("CustomerPayBillOnline")
         .amount("20")
         .partyA("251777890420")

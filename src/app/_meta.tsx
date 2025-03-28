@@ -11,13 +11,10 @@ import type { MetaRecord } from "nextra";
  **/
 const meta: MetaRecord = {
   index: {
-    display: "hidden",
+    display: 'hidden'
   },
-  "getting-started": {
-    title: "Getting Started",
-  },
-  docs: {
-    title: "Api Reference",
+    docs: {
+      display: 'children'
   },
   "api-reference": {
     title: "Api Reference",

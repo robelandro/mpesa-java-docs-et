@@ -1,4 +1,4 @@
-import { ShowCard } from "../show-card";
+import { ShowCard } from "../../components/show-card";
 import { Icon } from "@iconify/react";
 
 export const SdkFeatures = () => {
@@ -8,9 +8,9 @@ export const SdkFeatures = () => {
         icon={
           <Icon
             icon="line-md:star-pulsating-twotone-loop"
-            width="24"
-            height="24"
-            style={{ color: "#3CB957" }}
+            width="36"
+            height="36"
+            color="#3CB957"
           />
         }
         title="Getting Started"
@@ -21,8 +21,8 @@ export const SdkFeatures = () => {
         icon={
           <Icon
             icon="lets-icons:lock-duotone"
-            width="24"
-            height="24"
+            width="36"
+            height="36"
             style={{ color: "#3CB957" }}
           />
         }
@@ -32,9 +32,22 @@ export const SdkFeatures = () => {
       <ShowCard
         icon={
           <Icon
+            icon="bxl:spring-boot"
+            width="36"
+            height="36"
+            style={{ color: "#3CB957" }}
+          />
+        }
+        title="Spring boot support"
+        description="Out of box spring boot support"
+        href="/spring-boot"
+      />
+      <ShowCard
+        icon={
+          <Icon
             icon="mdi:package-variant-closed"
-            width="24"
-            height="24"
+            width="36"
+            height="36"
             style={{ color: "#3CB957" }}
           />
         }
@@ -46,8 +59,8 @@ export const SdkFeatures = () => {
         icon={
           <Icon
             icon="mdi:cog-sync-outline"
-            width="24"
-            height="24"
+            width="36"
+            height="36"
             style={{ color: "#3CB957" }}
           />
         }
@@ -59,8 +72,8 @@ export const SdkFeatures = () => {
         icon={
           <Icon
             icon="carbon:application-web"
-            width="24"
-            height="24"
+            width="36"
+            height="36"
             style={{ color: "#3CB957" }}
           />
         }
@@ -72,8 +85,8 @@ export const SdkFeatures = () => {
         icon={
           <Icon
             icon="mdi:shield-check"
-            width="24"
-            height="24"
+            width="36"
+            height="36"
             style={{ color: "#3CB957" }}
           />
         }
@@ -84,8 +97,8 @@ export const SdkFeatures = () => {
         icon={
           <Icon
             icon="mdi:test-tube"
-            width="24"
-            height="24"
+            width="36"
+            height="36"
             style={{ color: "#3CB957" }}
           />
         }

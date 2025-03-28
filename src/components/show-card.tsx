@@ -39,9 +39,9 @@ export function ShowCard({
         className
       )}
     >
-      <Card className="border-0 bg-transparent">
-        <CardHeader className="p-6">
-          <div className="flex items-center">
+      <Card className="border-0 bg-transparent shadow-none flex flex-col justify-between h-full">
+        <CardHeader className="px-6">
+          <div className="flex flex-col space-y-2">
             {icon && <div className="mr-2">{icon}</div>}
             <CardTitle className="text-xl font-bold tracking-tight">
               {title}
@@ -51,7 +51,7 @@ export function ShowCard({
             {description}
           </CardDescription>
         </CardHeader>
-        <CardContent className="p-6 pt-0">
+        <CardContent className="px-6 pt-0 content-end">
           {href && (
             <div className="flex items-center text-sm font-medium text-primary">
               <span>Learn more</span>
@@ -59,9 +59,6 @@ export function ShowCard({
             </div>
           )}
         </CardContent>
-        {footer && (
-          <CardFooter className="border-t bg-muted/50 p-6">{footer}</CardFooter>
-        )}
       </Card>
     </CardComponent>
   );

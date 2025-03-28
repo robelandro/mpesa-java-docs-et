@@ -1,0 +1,165 @@
+---
+title: Spring Boot Integration
+---
+
+# Spring Boot Integration with Mpesa SDK
+
+This page provides guidance on how to integrate the **Mpesa SDK** into your Spring Boot application. The SDK allows seamless communication with the Safaricom M-Pesa API for transactions such as STK Push, C2B payments, and more.
+
+## 1. Add the Dependency
+
+To use the **Mpesa SDK** in your Spring Boot project, first, add the following dependency to your `pom.xml` file:
+
+```xml
+<dependency>
+  <groupId>io.github.dere7</groupId>
+  <artifactId>mpesa-sdk</artifactId>
+  <version>1.1</version>
+</dependency>
+```
+
+## 2. Configuration
+
+You need to configure the SDK with your **M-Pesa** credentials and other related settings. To do this, you can add the following configuration to your `application.properties` or `application.yml` file.
+
+### Using `application.properties`
+
+```properties
+mpesa.sdk.consumer-key=your-consumer-key # required
+mpesa.sdk.consumer-secret=your-consumer-secret # required
+# optional
+mpesa.sdk.base-url=https://api.safaricom.co.ke
+mpesa.sdk.connection-timeout=5000
+mpesa.sdk.max-retries=3
+mpesa.sdk.retry-on-connection-failure=true
+mpesa.sdk.log-level=INFO
+```
+
+### Using `application.yml`
+
+```yaml
+mpesa:
+  sdk:
+    consumer-key: your-consumer-key # required
+    consumer-secret: your-consumer-secret # required
+    base-url: https://api.safaricom.co.ke
+    connection-timeout: 5000
+    max-retries: 3
+    retry-on-connection-failure: true
+    log-level: INFO
+```
+
+## 3. Enable Auto Configuration
+
+The library automatically configures necessary beans to work with Spring Boot. If you want to manually configure the `Mpesa` object, you can do so as follows:
+
+```java
+@Configuration
+public class MpesaConfig {
+
+    @Bean
+    public Mpesa mpesa(MpesaProperties properties) {
+        return new Mpesa(
+                properties.getConsumerKey(),
+                properties.getConsumerSecret(),
+                Configuration.builder()
+                        .baseUrl(properties.getBaseUrl())
+                        .logLevel(properties.getLogLevel())
+                        .connectionTimeout(properties.getConnectionTimeout())
+                        .maxRetries(properties.getMaxRetries())
+                        .retryOnConnectionFailure(properties.isRetryOnConnectionFailure())
+                        .build()
+        );
+    }
+}
+```
+
+This will enable Spring Boot's auto-configuration for the `Mpesa` SDK using the properties defined above.
+
+## 4. Example Usage
+
+Once the configuration is set up, you can use the `Mpesa` service in your Spring Boot controllers or services. Below is an example of how to initiate a **STK Push** request.
+
+```java
+@RestController
+@SpringBootApplication
+public class MpesaSdkSpringApplication {
+
+    private final Mpesa mpesa;
+
+    public MpesaSdkSpringApplication(Mpesa mpesa) {
+        this.mpesa = mpesa;
+    }
+
+    @PostMapping("/stkpush")
+    public UssdPushResponse stkpush(@RequestBody UssdPushRequest ussdPushRequest) throws DataValidationException, MpesaApiException {
+        return mpesa.triggerUssdPush(ussdPushRequest);
+    }
+
+    public static void main(String[] args) {
+        SpringApplication.run(MpesaSdkSpringApplication.class, args);
+    }
+}
+```
+
+### Explanation
+
+- The `Mpesa` object is injected via constructor injection.
+- The `stkpush` endpoint triggers the **STK Push** request when a POST request is made with the relevant data.
+
+## 5. Logging Configuration
+
+You can configure logging levels for the **Mpesa SDK** using the `logLevel` property. Valid values are:
+
+- `OFF`
+- `SEVERE`
+- `WARNING`
+- `INFO`
+- `CONFIG`
+- `FINE`
+- `FINER`
+- `FINEST`
+- `ALL`
+
+To set the log level in `application.properties`, for example:
+
+```properties
+mpesa.sdk.logLevel=INFO
+```
+
+## 6. Error Handling
+
+If there is an error while making a request to the M-Pesa API, the SDK will throw a `MpesaApiException`. Make sure to handle this exception in your controller or service:
+
+```java
+try {
+    UssdPushResponse response = mpesa.triggerUssdPush(ussdPushRequest);
+} catch (MpesaApiException e) {
+    // Handle the exception
+    System.out.println("Error: " + e.getMessage());
+}
+```
+
+## 7. Additional Configuration (Optional)
+
+### Retry Logic
+
+If you want to enable retry on connection failure, use the `retryOnConnectionFailure` property in the configuration.
+
+```properties
+mpesa.sdk.retryOnConnectionFailure=true
+```
+
+### Connection Timeout
+
+You can configure the connection timeout for API calls:
+
+```properties
+mpesa.sdk.connectionTimeout=5000
+```
+
+This will set the connection timeout to **5 seconds**.
+
+---
+
+For detailed information on each API provided by the **Mpesa SDK**, please refer to the official [M-Pesa API documentation](developer.safaricom.et/documentation).
